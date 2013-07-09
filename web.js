@@ -2,13 +2,13 @@ var express = require('express');
 
 var app = express.createServer(express.logger());
 
-var fs = require('fs');
-
 app.get('/', function(request, response) {
 
-  fs.readFileSync('index.html', function (err, data) {
-    if (err) throw err;
-    response.send(data.toString('utf-8'))
+  var fs = require('fs');
+
+  var buf = new Buffer(fs.readFileSync('index.html'), 'utf-8'); 
+  response.send(buf.toString());
+  
   });
 
 });
